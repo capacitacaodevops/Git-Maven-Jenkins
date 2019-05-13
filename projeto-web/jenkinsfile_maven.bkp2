@@ -10,14 +10,13 @@ pipeline {
     }
 
     stages {
-
-        stage("Build & Deploy SNAPSHOT") {
-            steps {
-                sh "mvn -B deploy"
-                  }
+	    stage 'Checkout'
+ 	       {
+  	        deleteDir()
+  	        checkout scm
                }
 
-            }
+           }
         }
 
 
