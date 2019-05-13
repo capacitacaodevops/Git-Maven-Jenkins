@@ -4,12 +4,13 @@
 pipeline 
 
 {
-
-	stage 'Checkout'
-        {
-  	deleteDir()
-  	checkout scm
- 	}
-
+      stages { 
+	stage ('Checkout'){
+           steps {
+  		 deleteDir()
+  		 checkout scm
+ 		 }
+        }
+     }
 }
 
