@@ -1,23 +1,5 @@
-#!/usr/bin/env groovy
-// see https://jenkins.io/doc/book/pipeline/syntax/
-
-pipeline {
-
-    agent any
-
-    tools {
-        maven "mvn"
-    }
-
-    stages {
-
-        stage("Build & Deploy SNAPSHOT") {
-            steps {
-                sh "mvn -B deploy"
-                  }
-               }
-
-            }
-        }
-
-
+stage 'Checkout'
+ node('master') {
+  deleteDir()
+  checkout scm
+ }
