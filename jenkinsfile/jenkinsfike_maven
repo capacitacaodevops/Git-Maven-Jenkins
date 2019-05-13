@@ -1,28 +1,52 @@
+#!/usr/bin/env groovy
+// see https://jenkins.io/doc/book/pipeline/syntax/
+
 pipeline {
+
     agent any
+
     tools {
-        maven 'mvn'
-        jdk 'null'
+        maven "Maven"
     }
+
+    triggers {
+        pollSCM "* * * * *"
+    }
+    
+    options {
+        timestamps()
+        ansiColor("xterm")
+    }
+
+    parameters {
+        booleanParam(name: "RELEASE",
+                description: "Build a release from current commit.",
+                defaultValue: false)
+    }
+
     stages {
-        stage ('Initialize') {
+
+        stage("Build & Deploy SNAPSHOT") {
             steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                '''
+                sh "mvn -B deploy"
             }
         }
 
-        stage ('Build') {
+        stage("Release") {
+            when {
+                expression { params.RELEASE }
+            }
             steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install' 
+                sh "mvn -B release:prepare"
+                sh "mvn -B release:perform"
             }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml' 
-                }
-            }
+        }
+
+    }
+
+    post {
+        always {
+            deleteDir()
         }
     }
 }
