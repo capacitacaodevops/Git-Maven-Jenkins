@@ -1,37 +1,15 @@
 #!/usr/bin/env groovy
 // see https://jenkins.io/doc/book/pipeline/syntax/
 
-pipeline {
+pipeline 
 
-    agent any
+{
 
-    tools {
-        maven "mvn"
-    }
+	stage 'Checkout'
+        {
+  	deleteDir()
+  	checkout scm
+ 	}
 
-    stages {
-
-        stage("Build & Deploy SNAPSHOT") {
-            steps {
-                sh "mvn -B deploy"
-            }
-        }
-
-        stage("Release") {
-            when {
-                expression { params.RELEASE }
-            }
-            steps {
-                sh "mvn -B release:prepare"
-                sh "mvn -B release:perform"
-            }
-        }
-
-    }
-
-    post {
-        always {
-            deleteDir()
-        }
-    }
 }
+
