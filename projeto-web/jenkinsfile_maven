@@ -2,7 +2,7 @@
 // see https://jenkins.io/doc/book/pipeline/syntax/
 
 pipeline 
-
+ agent any
 {
       stages { 
 	stage ('Checkout'){
