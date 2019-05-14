@@ -6,12 +6,12 @@ pipeline {
                       sh 'mvn archetype:generate -B ' +
                     '-DarchetypeGroupId=org.apache.maven.archetypes ' +
                     '-DarchetypeArtifactId=maven-archetype-quickstart ' +
-                    '-DgroupId=com.company -DartifactId=myproject'
+                    '-DgroupId=com.algaworks -DartifactId=projeto-web'
             }
         }
     stage('Build') {
            steps {
-            dir ('myproject') {
+            dir ('projeto-web') {
                  
                 sh 'mvn clean install test'
             }   
@@ -20,7 +20,7 @@ pipeline {
    }
    stage('Archive') {
          steps {
-           dir ('myproject/target') {
+           dir ('projeto-web/target') {
            archive '*.jar'
          }  
       } 

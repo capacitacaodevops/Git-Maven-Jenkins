@@ -13,7 +13,7 @@ pipeline {
            steps {
             dir ('myproject') {
                  
-                sh 'mvn install test'
+                sh 'mvn clean install test'
             }   
         } 
        
