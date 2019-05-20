@@ -5,7 +5,7 @@ pipeline {
             steps {
                       sh 'mvn archetype:generate -B ' +
                     '-DarchetypeGroupId=org.apache.maven.archetypes ' +
-                    '-DarchetypeArtifactId=maven-archetype-quickstart ' +
+                    '-DarchetypeArtifactId=mvn archetype:generate ' +
                     '-DgroupId=com.algaworks -DartifactId=projeto-web'
             }
         }
