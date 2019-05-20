@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Preparation') {
             steps {
-                      sh 'mvn archetype:generate  -B' +
+                      sh 'mvn archetype:generate -B ' +
                     '-DarchetypeGroupId=org.apache.maven.archetypes ' +
                     '-DarchetypeArtifactId=maven-archetype-quickstart ' +
                     '-DgroupId=com.algaworks -DartifactId=projeto-web'
@@ -13,8 +13,7 @@ pipeline {
            steps {
             dir ('projeto-web') {
                  
-                sh 'mvn clean install'
-              /*sh 'mvn clean install test'*/
+                sh 'mvn clean install test'
             }   
         } 
        
